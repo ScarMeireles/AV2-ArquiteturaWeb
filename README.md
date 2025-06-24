@@ -1,4 +1,3 @@
-
 # AV2 - API de Autenticação e Gerenciamento de Produtos
 
 ## 📋 Descrição
