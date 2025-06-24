@@ -2,7 +2,7 @@
 
 ## 📋 Descrição
 
-Este é um projeto Spring Boot que implementa uma API REST completa com autenticação JWT, gerenciamento de produtos e monitoramento com Prometheus e Grafana. O projeto foi desenvolvido como parte de uma avaliação de Arquitetura Web.
+Este é um projeto Spring Boot que implementa uma API REST completa com autenticação JWT, gerenciamento de produtos e monitoramento com Prometheus e Grafana. O projeto foi desenvolvido para a avaliação 2 de Arquitetura Web.
 
 ## 🚀 Tecnologias Utilizadas
 
