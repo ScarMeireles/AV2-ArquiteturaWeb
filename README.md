@@ -1,4 +1,3 @@
-
 # AV2 - API de Autenticação e Gerenciamento de Produtos
 
 ## 📋 Descrição
@@ -20,6 +19,7 @@ Este é um projeto Spring Boot que implementa uma API REST completa com autentic
 - **Grafana** para visualização
 - **Docker** e **Docker Compose** para containerização
 - **Maven** para gerenciamento de dependências
+- **Apache JMeter** para testes de carga
 
 ## 🏗️ Arquitetura do Projeto
 
@@ -61,12 +61,19 @@ src/main/java/com/example/av2/
 - Documentação automática da API
 - Endpoints bem documentados
 
+### 🧪 Testes de Carga
+- Testes de carga com Apache JMeter
+- Métricas de throughput, tempo de resposta e taxa de erro
+- Scripts automatizados para execução dos testes
+- Relatórios detalhados de performance
+
 ## 🛠️ Configuração e Instalação
 
 ### Pré-requisitos
 - Java 21 ou superior
 - Maven 3.6+
 - Docker e Docker Compose (opcional)
+- Apache JMeter (para testes de carga)
 
 ### Executando Localmente
 
@@ -151,11 +158,62 @@ src/main/java/com/example/av2/
 
 ## 🧪 Testes
 
+### Testes Unitários
 O projeto inclui testes básicos:
 
 ```bash
 mvn test
 ```
+
+### Testes de Carga com JMeter
+
+#### Pré-requisitos
+1. **Instalar JMeter**: Baixe em [https://jmeter.apache.org/download_jmeter.cgi](https://jmeter.apache.org/download_jmeter.cgi)
+2. **Adicionar ao PATH**: Configure o JMeter no PATH do sistema
+
+#### Execução Automatizada
+
+**Windows:**
+```bash
+executar-testes-carga.bat
+```
+
+**Linux/macOS:**
+```bash
+./executar-testes-carga.sh
+```
+
+#### Execução Manual
+1. **Abrir JMeter**
+   ```bash
+   jmeter.bat  # Windows
+   ./jmeter.sh # Linux/macOS
+   ```
+
+2. **Carregar plano de teste**
+   - File → Open → `testes-carga.jmx`
+
+3. **Executar testes**
+   - Clique no botão Start (▶️)
+
+#### Configurações dos Testes
+- **Thread Group - Login**: 50 usuários, 30s ramp-up, 10 loops
+- **Thread Group - Produtos**: 20 usuários, 10s ramp-up, 5 loops
+- **Total de Requests**: 600 requisições
+
+#### Métricas Coletadas
+- **Throughput**: Requisições por segundo (RPS)
+- **Tempo Médio de Resposta**: Latência média
+- **Taxa de Erro**: Percentual de falhas
+- **Percentis**: 95% e 99% de tempo de resposta
+
+#### Relatórios
+- **Summary Report**: Visão geral dos resultados
+- **Aggregate Report**: Estatísticas detalhadas
+- **Graph Results**: Gráficos de performance
+- **HTML Report**: Relatório completo em HTML
+
+Para mais detalhes, consulte o arquivo `JMETER-TESTES.md`.
 
 ## 📊 Dados Iniciais
 
