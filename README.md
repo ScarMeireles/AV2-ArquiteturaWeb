@@ -271,3 +271,54 @@ Desenvolvido como parte da avaliação de Arquitetura Web.
 ## 📞 Suporte
 
 Para dúvidas ou problemas, abra uma issue no repositório do projeto.
+
+## 🩺 Dashboard Grafana de Exemplo
+
+Para facilitar o monitoramento, inclua o dashboard de exemplo disponível em `grafana-dashboard-av2.json`.
+
+### Importando o Dashboard
+1. Acesse o Grafana em [http://localhost:3000](http://localhost:3000) (admin/admin)
+2. Clique em "+" > "Import"
+3. Faça upload do arquivo `grafana-dashboard-av2.json` ou cole o conteúdo JSON
+4. Selecione a fonte de dados Prometheus
+5. Clique em "Import"
+
+O dashboard irá exibir métricas de requisições, latência, status HTTP, uso de CPU/memória, etc.
+
+---
+
+## 🚚 Deploy em Plataformas Gratuitas
+
+### Deploy no Render
+1. Faça login em [https://render.com](https://render.com)
+2. Clique em "New Web Service"
+3. Conecte seu repositório GitHub
+4. Configure:
+   - Build Command: `./mvnw clean package -DskipTests`
+   - Start Command: `java -jar target/av2-0.0.1-SNAPSHOT.jar`
+   - Environment: Java 21
+   - Adicione variáveis de ambiente para o JWT secret, se necessário
+5. Clique em "Create Web Service"
+
+### Deploy no Railway
+1. Faça login em [https://railway.app](https://railway.app)
+2. Clique em "New Project" > "Deploy from GitHub repo"
+3. Configure:
+   - Build Command: `./mvnw clean package -DskipTests`
+   - Start Command: `java -jar target/av2-0.0.1-SNAPSHOT.jar`
+   - Environment: Java 21
+   - Adicione variáveis de ambiente para o JWT secret, se necessário
+4. Clique em "Deploy"
+
+#### Observações
+- Para ambos, pode ser necessário configurar variáveis de ambiente para `spring.security.jwt.secret` e `spring.security.jwt.expiration`.
+- O banco H2 é volátil. Para produção, utilize PostgreSQL ou MySQL e ajuste o `application.yml`.
+- O Prometheus e Grafana não são suportados diretamente nessas plataformas gratuitas, mas você pode monitorar a API localmente ou usar serviços externos.
+
+---
+
+## 📊 Exemplo de Dashboard Grafana
+
+O arquivo `grafana-dashboard-av2.json` acompanha o projeto e pode ser importado no Grafana para visualização rápida das métricas da API.
+
+---

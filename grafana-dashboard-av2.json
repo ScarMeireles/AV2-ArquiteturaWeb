@@ -1,0 +1,120 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1625240000000,
+  "links": [],
+  "panels": [
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "id": 1,
+      "options": {
+        "legend": {"displayMode": "list", "placement": "bottom"},
+        "tooltip": {"mode": "single"}
+      },
+      "targets": [
+        {
+          "expr": "http_server_requests_seconds_count{application=~\".*\"}",
+          "interval": "",
+          "legendFormat": "{{uri}} [{{method}}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Requisições por Endpoint",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {"defaults": {}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "id": 2,
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}},
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(http_server_requests_seconds_bucket{application=~\".*\"}[1m])) by (le, uri, method))",
+          "interval": "",
+          "legendFormat": "{{uri}} [{{method}}]",
+          "refId": "A"
+        }
+      ],
+      "title": "Latência 95% por Endpoint (s)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {"defaults": {}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+      "id": 3,
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}},
+      "targets": [
+        {
+          "expr": "sum(rate(http_server_requests_seconds_count{status=~\"5..\"}[1m])) by (uri)",
+          "interval": "",
+          "legendFormat": "5xx - {{uri}}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(http_server_requests_seconds_count{status=~\"4..\"}[1m])) by (uri)",
+          "interval": "",
+          "legendFormat": "4xx - {{uri}}",
+          "refId": "B"
+        }
+      ],
+      "title": "Erros HTTP por Endpoint",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {"defaults": {}, "overrides": []},
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+      "id": 4,
+      "options": {"legend": {"displayMode": "list", "placement": "bottom"}, "tooltip": {"mode": "single"}},
+      "targets": [
+        {
+          "expr": "process_cpu_usage{application=~\".*\"} * 100",
+          "interval": "",
+          "legendFormat": "CPU (%)",
+          "refId": "A"
+        },
+        {
+          "expr": "jvm_memory_used_bytes{area=\"heap\",application=~\".*\"} / 1024 / 1024",
+          "interval": "",
+          "legendFormat": "Heap Used (MB)",
+          "refId": "B"
+        }
+      ],
+      "title": "Uso de CPU e Memória JVM",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 30,
+  "style": "dark",
+  "tags": ["spring-boot", "api", "monitoramento"],
+  "templating": {"list": []},
+  "time": {"from": "now-6h", "to": "now"},
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "API AV2 - Monitoramento",
+  "uid": "api-av2-monitor",
+  "version": 1
+} 
